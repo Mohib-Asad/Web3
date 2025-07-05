@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brain Teasers - Logical Puzzle Quiz</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: shimmer 3s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .header {
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            animation: titleGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% { filter: drop-shadow(0 0 5px rgba(102, 126, 234, 0.3)); }
+            100% { filter: drop-shadow(0 0 20px rgba(102, 126, 234, 0.6)); }
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 15px;
+            border-radius: 15px;
+            color: white;
+            font-weight: 600;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .question-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+
+        .question-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .question-number {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .options {
+            display: grid;
+            gap: 15px;
+        }
+
+        .option {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .option:hover::before {
+            left: 100%;
+        }
+
+        .option:hover {
+            transform: translateX(5px);
+            border-color: #667eea;
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+        }
+
+        .option.correct {
+            background: linear-gradient(135deg, #4caf50, #45a049);
+            color: white;
+            border-color: #4caf50;
+            animation: correctPulse 0.6s ease;
+        }
+
+        .option.incorrect {
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+            color: white;
+            border-color: #f44336;
+            animation: incorrectShake 0.6s ease;
+        }
+
+        @keyframes correctPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes incorrectShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .explanation {
+            background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+            border-left: 4px solid #ff9800;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+            animation: slideDown 0.5s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .explanation.show {
+            display: block;
+        }
+
+        .explanation h4 {
+            color: #e65100;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .explanation p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn.secondary {
+            background: linear-gradient(135deg, #6c757d, #495057);
+        }
+
+        .btn.success {
+            background: linear-gradient(135deg, #28a745, #20c997);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: progressShimmer 2s infinite;
+        }
+
+        @keyframes progressShimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .result-screen {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .result-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .score-display {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #667eea;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #f00;
+            animation: confetti-fall 3s linear infinite;
+        }
+
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100vh) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-element {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 20px;
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+            
+            .question-text {
+                font-size: 1.1rem;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements">
+        <div class="floating-element" style="top: 10%; left: 10%; font-size: 2rem;">🧩</div>
+        <div class="floating-element" style="top: 20%; right: 15%; font-size: 1.5rem;">💡</div>
+        <div class="floating-element" style="bottom: 30%; left: 20%; font-size: 2.5rem;">🎯</div>
+        <div class="floating-element" style="bottom: 20%; right: 10%; font-size: 1.8rem;">🧠</div>
+        <div class="floating-element" style="top: 60%; left: 5%; font-size: 2.2rem;">⚡</div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1 class="title">Brain Teasers</h1>
+            <p class="subtitle">Test your logical thinking with these mind-bending puzzles!</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <span class="stat-value" id="score">0</span>
+                <span class="stat-label">Score</span>
+            </div>
+            <div class="stat">
+                <span class="stat-value" id="questionNum">1</span>
+                <span class="stat-label">Question</span>
+            </div>
+            <div class="stat">
+                <span class="stat-value" id="totalQuestions">10</span>
+                <span class="stat-label">Total</span>
+            </div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div id="quizContainer">
+            <div class="question-container">
+                <div class="question-number" id="questionNumber">1</div>
+                <div class="question-text" id="questionText"></div>
+                <div class="options" id="options"></div>
+                <div class="explanation" id="explanation">
+                    <h4>💡 Explanation</h4>
+                    <p id="explanationText"></p>
+                </div>
+            </div>
+            <div class="controls">
+                <button class="btn secondary" id="nextBtn" disabled>Next Question</button>
+                <button class="btn" id="restartBtn">Restart Quiz</button>
+            </div>
+        </div>
+
+        <div class="result-screen" id="resultScreen">
+            <h2 class="result-title">Quiz Complete! 🎉</h2>
+            <div class="score-display" id="finalScore">0/10</div>
+            <p style="color: #666; margin-bottom: 30px; font-size: 1.1rem;">You've completed all the brain teasers!</p>
+            <button class="btn success" id="playAgainBtn">Play Again</button>
+        </div>
+    </div>
+
+    <script>
+        class QuizApp {
+            constructor() {
+                this.currentQuestion = 0;
+                this.score = 0;
+                this.questions = [
+                    {
+                        question: "A man lives on the 10th floor of a building. Every day he takes the elevator to go down to the ground floor to go to work. When he returns, he takes the elevator to the 7th floor and walks up the stairs to reach his apartment on the 10th floor. Why?",
+                        options: [
+                            "He's afraid of heights",
+                            "The elevator doesn't go to the 10th floor",
+                            "He's too short to reach the 10th floor button",
+                            "He's exercising"
+                        ],
+                        correct: 2,
+                        explanation: "The man is too short to reach the 10th floor button! He can only reach the 7th floor button, so he walks the remaining 3 floors."
+                    },
+                    {
+                        question: "What has keys, but no locks; space, but no room; and you can enter, but not go in?",
+                        options: [
+                            "A computer",
+                            "A keyboard",
+                            "A door",
+                            "A book"
+                        ],
+                        correct: 1,
+                        explanation: "A keyboard has keys (letter keys), space (spacebar), and you can enter (Enter key), but it's not something you physically go into."
+                    },
+                    {
+                        question: "I speak without a mouth and hear without ears. I have no body, but I come alive with wind. What am I?",
+                        options: [
+                            "A tree",
+                            "An echo",
+                            "A shadow",
+                            "A cloud"
+                        ],
+                        correct: 1,
+                        explanation: "An echo speaks without a mouth (repeats sounds), hears without ears (responds to sound), has no body, and comes alive with wind (sound waves)."
+                    },
+                    {
+                        question: "The more you take, the more you leave behind. What am I?",
+                        options: [
+                            "Footsteps",
+                            "Time",
+                            "Money",
+                            "Friends"
+                        ],
+                        correct: 0,
+                        explanation: "Footsteps! The more steps you take, the more footprints you leave behind."
+                    },
+                    {
+                        question: "What gets wetter and wetter the more it dries?",
+                        options: [
+                            "A towel",
+                            "A sponge",
+                            "A cloth",
+                            "All of the above"
+                        ],
+                        correct: 0,
+                        explanation: "A towel! The more it dries things, the wetter it becomes itself."
+                    },
+                    {
+                        question: "What has cities, but no houses; forests, but no trees; and rivers, but no water?",
+                        options: [
+                            "A map",
+                            "A globe",
+                            "A book",
+                            "A painting"
+                        ],
+                        correct: 0,
+                        explanation: "A map! It shows cities, forests, and rivers, but they're just representations, not the real things."
+                    },
+                    {
+                        question: "What breaks when you say it?",
+                        options: [
+                            "A promise",
+                            "Silence",
+                            "A heart",
+                            "A glass"
+                        ],
+                        correct: 1,
+                        explanation: "Silence! When you say the word 'silence', you break the silence."
+                    },
+                    {
+                        question: "What has a head and a tail but no body?",
+                        options: [
+                            "A snake",
+                            "A coin",
+                            "A worm",
+                            "A fish"
+                        ],
+                        correct: 1,
+                        explanation: "A coin! It has a head (one side) and a tail (the other side), but no body in between."
+                    },
+                    {
+                        question: "What comes once in a minute, twice in a moment, but never in a thousand years?",
+                        options: [
+                            "The letter 'E'",
+                            "The letter 'M'",
+                            "The letter 'O'",
+                            "The letter 'T'"
+                        ],
+                        correct: 1,
+                        explanation: "The letter 'M'! It appears once in 'minute', twice in 'moment', but never in 'thousand years'."
+                    },
+                    {
+                        question: "What is always in front of you but can't be seen?",
+                        options: [
+                            "The future",
+                            "Your shadow",
+                            "The past",
+                            "Your reflection"
+                        ],
+                        correct: 0,
+                        explanation: "The future! It's always ahead of you, but you can never see it coming."
+                    }
+                ];
+                this.selectedAnswer = null;
+                this.answered = false;
+
+                this.initializeElements();
+                this.bindEvents();
+                this.showQuestion();
+                this.updateProgress();
+            }
+
+            initializeElements() {
+                this.questionText = document.getElementById('questionText');
+                this.optionsContainer = document.getElementById('options');
+                this.nextBtn = document.getElementById('nextBtn');
+                this.restartBtn = document.getElementById('restartBtn');
+                this.playAgainBtn = document.getElementById('playAgainBtn');
+                this.explanation = document.getElementById('explanation');
+                this.explanationText = document.getElementById('explanationText');
+                this.questionNumber = document.getElementById('questionNumber');
+                this.scoreElement = document.getElementById('score');
+                this.questionNumElement = document.getElementById('questionNum');
+                this.progressFill = document.getElementById('progressFill');
+                this.quizContainer = document.getElementById('quizContainer');
+                this.resultScreen = document.getElementById('resultScreen');
+                this.finalScore = document.getElementById('finalScore');
+            }
+
+            bindEvents() {
+                this.nextBtn.addEventListener('click', () => this.nextQuestion());
+                this.restartBtn.addEventListener('click', () => this.restart());
+                this.playAgainBtn.addEventListener('click', () => this.restart());
+            }
+
+            showQuestion() {
+                const question = this.questions[this.currentQuestion];
+                this.questionText.textContent = question.question;
+                this.questionNumber.textContent = this.currentQuestion + 1;
+                this.questionNumElement.textContent = this.currentQuestion + 1;
+
+                this.optionsContainer.innerHTML = '';
+                question.options.forEach((option, index) => {
+                    const optionElement = document.createElement('div');
+                    optionElement.className = 'option';
+                    optionElement.textContent = option;
+                    optionElement.addEventListener('click', () => this.selectOption(index));
+                    this.optionsContainer.appendChild(optionElement);
+                });
+
+                this.explanation.classList.remove('show');
+                this.nextBtn.disabled = true;
+                this.selectedAnswer = null;
+                this.answered = false;
+            }
+
+            selectOption(index) {
+                if (this.answered) return;
+
+                this.selectedAnswer = index;
+                this.answered = true;
+                const question = this.questions[this.currentQuestion];
+                const options = this.optionsContainer.children;
+
+                // Remove previous selections
+                Array.from(options).forEach(option => {
+                    option.classList.remove('correct', 'incorrect');
+                });
+
+                if (index === question.correct) {
+                    options[index].classList.add('correct');
+                    this.score++;
+                    this.scoreElement.textContent = this.score;
+                    this.createConfetti();
+                } else {
+                    options[index].classList.add('incorrect');
+                    options[question.correct].classList.add('correct');
+                }
+
+                this.explanationText.textContent = question.explanation;
+                this.explanation.classList.add('show');
+                this.nextBtn.disabled = false;
+
+                // Add click animation
+                options[index].style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    options[index].style.transform = '';
+                }, 150);
+            }
+
+            nextQuestion() {
+                this.currentQuestion++;
+                if (this.currentQuestion >= this.questions.length) {
+                    this.showResults();
+                } else {
+                    this.showQuestion();
+                    this.updateProgress();
+                }
+            }
+
+            showResults() {
+                this.quizContainer.style.display = 'none';
+                this.resultScreen.style.display = 'block';
+                this.finalScore.textContent = `${this.score}/${this.questions.length}`;
+                
+                // Create celebration confetti
+                for (let i = 0; i < 50; i++) {
+                    setTimeout(() => this.createConfetti(), i * 100);
+                }
+            }
+
+            createConfetti() {
+                const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57', '#ff9ff3'];
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                document.body.appendChild(confetti);
+
+                setTimeout(() => {
+                    confetti.remove();
+                }, 5000);
+            }
+
+            updateProgress() {
+                const progress = ((this.currentQuestion) / this.questions.length) * 100;
+                this.progressFill.style.width = progress + '%';
+            }
+
+            restart() {
+                this.currentQuestion = 0;
+                this.score = 0;
+                this.selectedAnswer = null;
+                this.answered = false;
+                
+                this.scoreElement.textContent = '0';
+                this.quizContainer.style.display = 'block';
+                this.resultScreen.style.display = 'none';
+                
+                this.showQuestion();
+                this.updateProgress();
+            }
+        }
+
+        // Initialize the app when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new QuizApp();
+        });
+
+        // Add some interactive background effects
+        document.addEventListener('mousemove', (e) => {
+            const elements = document.querySelectorAll('.floating-element');
+            elements.forEach((element, index) => {
+                const speed = (index + 1) * 0.5;
+                const x = (window.innerWidth - e.pageX * speed) / 100;
+                const y = (window.innerHeight - e.pageY * speed) / 100;
+                element.style.transform = `translate(${x}px, ${y}px) rotate(${x}deg)`;
+            });
+        });
+    </script>
+</body>
+</html> 
