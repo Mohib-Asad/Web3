@@ -633,118 +633,649 @@
             constructor() {
                 this.currentQuestion = 0;
                 this.score = 0;
-                this.questions = [
-                    {
-                        question: "A man lives on the 10th floor of a building. Every day he takes the elevator to go down to the ground floor to go to work. When he returns, he takes the elevator to the 7th floor and walks up the stairs to reach his apartment on the 10th floor. Why?",
-                        options: [
-                            "He's afraid of heights",
-                            "The elevator doesn't go to the 10th floor",
-                            "He's too short to reach the 10th floor button",
-                            "He's exercising"
-                        ],
-                        correct: 2,
-                        explanation: "The man is too short to reach the 10th floor button! He can only reach the 7th floor button, so he walks the remaining 3 floors."
-                    },
-                    {
-                        question: "What has keys, but no locks; space, but no room; and you can enter, but not go in?",
-                        options: [
-                            "A computer",
-                            "A keyboard",
-                            "A door",
-                            "A book"
-                        ],
-                        correct: 1,
-                        explanation: "A keyboard has keys (letter keys), space (spacebar), and you can enter (Enter key), but it's not something you physically go into."
-                    },
-                    {
-                        question: "I speak without a mouth and hear without ears. I have no body, but I come alive with wind. What am I?",
-                        options: [
-                            "A tree",
-                            "An echo",
-                            "A shadow",
-                            "A cloud"
-                        ],
-                        correct: 1,
-                        explanation: "An echo speaks without a mouth (repeats sounds), hears without ears (responds to sound), has no body, and comes alive with wind (sound waves)."
-                    },
-                    {
-                        question: "The more you take, the more you leave behind. What am I?",
-                        options: [
-                            "Footsteps",
-                            "Time",
-                            "Money",
-                            "Friends"
-                        ],
-                        correct: 0,
-                        explanation: "Footsteps! The more steps you take, the more footprints you leave behind."
-                    },
-                    {
-                        question: "What gets wetter and wetter the more it dries?",
-                        options: [
-                            "A towel",
-                            "A sponge",
-                            "A cloth",
-                            "All of the above"
-                        ],
-                        correct: 0,
-                        explanation: "A towel! The more it dries things, the wetter it becomes itself."
-                    },
-                    {
-                        question: "What has cities, but no houses; forests, but no trees; and rivers, but no water?",
-                        options: [
-                            "A map",
-                            "A globe",
-                            "A book",
-                            "A painting"
-                        ],
-                        correct: 0,
-                        explanation: "A map! It shows cities, forests, and rivers, but they're just representations, not the real things."
-                    },
-                    {
-                        question: "What breaks when you say it?",
-                        options: [
-                            "A promise",
-                            "Silence",
-                            "A heart",
-                            "A glass"
-                        ],
-                        correct: 1,
-                        explanation: "Silence! When you say the word 'silence', you break the silence."
-                    },
-                    {
-                        question: "What has a head and a tail but no body?",
-                        options: [
-                            "A snake",
-                            "A coin",
-                            "A worm",
-                            "A fish"
-                        ],
-                        correct: 1,
-                        explanation: "A coin! It has a head (one side) and a tail (the other side), but no body in between."
-                    },
-                    {
-                        question: "What comes once in a minute, twice in a moment, but never in a thousand years?",
-                        options: [
-                            "The letter 'E'",
-                            "The letter 'M'",
-                            "The letter 'O'",
-                            "The letter 'T'"
-                        ],
-                        correct: 1,
-                        explanation: "The letter 'M'! It appears once in 'minute', twice in 'moment', but never in 'thousand years'."
-                    },
-                    {
-                        question: "What is always in front of you but can't be seen?",
-                        options: [
-                            "The future",
-                            "Your shadow",
-                            "The past",
-                            "Your reflection"
-                        ],
-                        correct: 0,
-                        explanation: "The future! It's always ahead of you, but you can never see it coming."
-                    }
-                ];
+                            this.questionBank = [
+                {
+                    question: "A man lives on the 10th floor of a building. Every day he takes the elevator to go down to the ground floor to go to work. When he returns, he takes the elevator to the 7th floor and walks up the stairs to reach his apartment on the 10th floor. Why?",
+                    options: [
+                        "He's afraid of heights",
+                        "The elevator doesn't go to the 10th floor",
+                        "He's too short to reach the 10th floor button",
+                        "He's exercising"
+                    ],
+                    correct: 2,
+                    explanation: "The man is too short to reach the 10th floor button! He can only reach the 7th floor button, so he walks the remaining 3 floors."
+                },
+                {
+                    question: "What has keys, but no locks; space, but no room; and you can enter, but not go in?",
+                    options: [
+                        "A computer",
+                        "A keyboard",
+                        "A door",
+                        "A book"
+                    ],
+                    correct: 1,
+                    explanation: "A keyboard has keys (letter keys), space (spacebar), and you can enter (Enter key), but it's not something you physically go into."
+                },
+                {
+                    question: "I speak without a mouth and hear without ears. I have no body, but I come alive with wind. What am I?",
+                    options: [
+                        "A tree",
+                        "An echo",
+                        "A shadow",
+                        "A cloud"
+                    ],
+                    correct: 1,
+                    explanation: "An echo speaks without a mouth (repeats sounds), hears without ears (responds to sound), has no body, and comes alive with wind (sound waves)."
+                },
+                {
+                    question: "The more you take, the more you leave behind. What am I?",
+                    options: [
+                        "Footsteps",
+                        "Time",
+                        "Money",
+                        "Friends"
+                    ],
+                    correct: 0,
+                    explanation: "Footsteps! The more steps you take, the more footprints you leave behind."
+                },
+                {
+                    question: "What gets wetter and wetter the more it dries?",
+                    options: [
+                        "A towel",
+                        "A sponge",
+                        "A cloth",
+                        "All of the above"
+                    ],
+                    correct: 0,
+                    explanation: "A towel! The more it dries things, the wetter it becomes itself."
+                },
+                {
+                    question: "What has cities, but no houses; forests, but no trees; and rivers, but no water?",
+                    options: [
+                        "A map",
+                        "A globe",
+                        "A book",
+                        "A painting"
+                    ],
+                    correct: 0,
+                    explanation: "A map! It shows cities, forests, and rivers, but they're just representations, not the real things."
+                },
+                {
+                    question: "What breaks when you say it?",
+                    options: [
+                        "A promise",
+                        "Silence",
+                        "A heart",
+                        "A glass"
+                    ],
+                    correct: 1,
+                    explanation: "Silence! When you say the word 'silence', you break the silence."
+                },
+                {
+                    question: "What has a head and a tail but no body?",
+                    options: [
+                        "A snake",
+                        "A coin",
+                        "A worm",
+                        "A fish"
+                    ],
+                    correct: 1,
+                    explanation: "A coin! It has a head (one side) and a tail (the other side), but no body in between."
+                },
+                {
+                    question: "What comes once in a minute, twice in a moment, but never in a thousand years?",
+                    options: [
+                        "The letter 'E'",
+                        "The letter 'M'",
+                        "The letter 'O'",
+                        "The letter 'T'"
+                    ],
+                    correct: 1,
+                    explanation: "The letter 'M'! It appears once in 'minute', twice in 'moment', but never in 'thousand years'."
+                },
+                {
+                    question: "What is always in front of you but can't be seen?",
+                    options: [
+                        "The future",
+                        "Your shadow",
+                        "The past",
+                        "Your reflection"
+                    ],
+                    correct: 0,
+                    explanation: "The future! It's always ahead of you, but you can never see it coming."
+                },
+                {
+                    question: "What has many keys but no locks, space but no room, and you can enter but not go in?",
+                    options: [
+                        "A piano",
+                        "A keyboard",
+                        "A typewriter",
+                        "A calculator"
+                    ],
+                    correct: 1,
+                    explanation: "A keyboard! It has keys (letter keys), space (spacebar), and you can enter (Enter key), but it's not something you physically go into."
+                },
+                {
+                    question: "What gets bigger when you take away from it?",
+                    options: [
+                        "A hole",
+                        "A shadow",
+                        "A debt",
+                        "A memory"
+                    ],
+                    correct: 0,
+                    explanation: "A hole! The more you dig or take away from it, the bigger the hole becomes."
+                },
+                {
+                    question: "What has legs but cannot walk?",
+                    options: [
+                        "A chair",
+                        "A table",
+                        "A spider",
+                        "A snake"
+                    ],
+                    correct: 1,
+                    explanation: "A table! It has legs (table legs) but cannot walk."
+                },
+                {
+                    question: "What can travel around the world while staying in a corner?",
+                    options: [
+                        "A globe",
+                        "A stamp",
+                        "A compass",
+                        "A map"
+                    ],
+                    correct: 1,
+                    explanation: "A stamp! It travels around the world on letters and packages while staying in the corner of envelopes."
+                },
+                {
+                    question: "What has keys that open no doors, space but no room, and you can enter but not go in?",
+                    options: [
+                        "A computer",
+                        "A keyboard",
+                        "A piano",
+                        "A calculator"
+                    ],
+                    correct: 1,
+                    explanation: "A keyboard! It has keys that don't open doors, space (spacebar), and you can enter (Enter key) but not physically go in."
+                },
+                {
+                    question: "What is full of holes but still holds water?",
+                    options: [
+                        "A sponge",
+                        "A sieve",
+                        "A net",
+                        "A colander"
+                    ],
+                    correct: 0,
+                    explanation: "A sponge! It's full of holes but can absorb and hold water."
+                },
+                {
+                    question: "What has cities, but no houses; forests, but no trees; and rivers, but no water?",
+                    options: [
+                        "A map",
+                        "A globe",
+                        "A book",
+                        "A painting"
+                    ],
+                    correct: 0,
+                    explanation: "A map! It shows cities, forests, and rivers, but they're just representations, not the real things."
+                },
+                {
+                    question: "What has a thumb and four fingers but is not alive?",
+                    options: [
+                        "A glove",
+                        "A hand",
+                        "A monkey",
+                        "A robot"
+                    ],
+                    correct: 0,
+                    explanation: "A glove! It has a thumb and four fingers but is not alive."
+                },
+                {
+                    question: "What has keys, no locks, space, no room, and you can enter but not go in?",
+                    options: [
+                        "A computer",
+                        "A keyboard",
+                        "A piano",
+                        "A typewriter"
+                    ],
+                    correct: 1,
+                    explanation: "A keyboard! It has keys (letter keys), space (spacebar), and you can enter (Enter key), but it's not something you physically go into."
+                },
+                {
+                    question: "What is always in front of you but can't be seen?",
+                    options: [
+                        "The future",
+                        "Your shadow",
+                        "The past",
+                        "Your reflection"
+                    ],
+                    correct: 0,
+                    explanation: "The future! It's always ahead of you, but you can never see it coming."
+                },
+                {
+                    question: "What has a head and a tail but no body?",
+                    options: [
+                        "A snake",
+                        "A coin",
+                        "A worm",
+                        "A fish"
+                    ],
+                    correct: 1,
+                    explanation: "A coin! It has a head (one side) and a tail (the other side), but no body in between."
+                },
+                {
+                    question: "What can run but has no legs?",
+                    options: [
+                        "A river",
+                        "A car",
+                        "A clock",
+                        "A computer"
+                    ],
+                    correct: 0,
+                    explanation: "A river! It can run (flow) but has no legs."
+                },
+                {
+                    question: "What has keys that open no doors, space but no room, and you can enter but not go in?",
+                    options: [
+                        "A computer",
+                        "A keyboard",
+                        "A piano",
+                        "A calculator"
+                    ],
+                    correct: 1,
+                    explanation: "A keyboard! It has keys that don't open doors, space (spacebar), and you can enter (Enter key) but not physically go in."
+                },
+                {
+                    question: "What gets wetter and wetter the more it dries?",
+                    options: [
+                        "A towel",
+                        "A sponge",
+                        "A cloth",
+                        "All of the above"
+                    ],
+                    correct: 0,
+                    explanation: "A towel! The more it dries things, the wetter it becomes itself."
+                },
+                {
+                    question: "What has many keys but no locks, space but no room, and you can enter but not go in?",
+                    options: [
+                        "A piano",
+                        "A keyboard",
+                        "A typewriter",
+                        "A calculator"
+                    ],
+                    correct: 1,
+                    explanation: "A keyboard! It has keys (letter keys), space (spacebar), and you can enter (Enter key), but it's not something you physically go into."
+                },
+                {
+                    question: "What has cities, but no houses; forests, but no trees; and rivers, but no water?",
+                    options: [
+                        "A map",
+                        "A globe",
+                        "A book",
+                        "A painting"
+                    ],
+                    correct: 0,
+                    explanation: "A map! It shows cities, forests, and rivers, but they're just representations, not the real things."
+                },
+                {
+                    question: "What breaks when you say it?",
+                    options: [
+                        "A promise",
+                        "Silence",
+                        "A heart",
+                        "A glass"
+                    ],
+                    correct: 1,
+                    explanation: "Silence! When you say the word 'silence', you break the silence."
+                },
+                {
+                    question: "What has a head and a tail but no body?",
+                    options: [
+                        "A snake",
+                        "A coin",
+                        "A worm",
+                        "A fish"
+                    ],
+                    correct: 1,
+                    explanation: "A coin! It has a head (one side) and a tail (the other side), but no body in between."
+                },
+                {
+                    question: "What comes once in a minute, twice in a moment, but never in a thousand years?",
+                    options: [
+                        "The letter 'E'",
+                        "The letter 'M'",
+                        "The letter 'O'",
+                        "The letter 'T'"
+                    ],
+                    correct: 1,
+                    explanation: "The letter 'M'! It appears once in 'minute', twice in 'moment', but never in 'thousand years'."
+                },
+                {
+                    question: "What is always in front of you but can't be seen?",
+                    options: [
+                        "The future",
+                        "Your shadow",
+                        "The past",
+                        "Your reflection"
+                    ],
+                    correct: 0,
+                    explanation: "The future! It's always ahead of you, but you can never see it coming."
+                },
+                {
+                    question: "What has keys that open no doors, space but no room, and you can enter but not go in?",
+                    options: [
+                        "A computer",
+                        "A keyboard",
+                        "A piano",
+                        "A calculator"
+                    ],
+                    correct: 1,
+                    explanation: "A keyboard! It has keys that don't open doors, space (spacebar), and you can enter (Enter key) but not physically go in."
+                },
+                {
+                    question: "What can run but has no legs?",
+                    options: [
+                        "A river",
+                        "A car",
+                        "A clock",
+                        "A computer"
+                    ],
+                    correct: 0,
+                    explanation: "A river! It can run (flow) but has no legs."
+                },
+                {
+                    question: "What has a thumb and four fingers but is not alive?",
+                    options: [
+                        "A glove",
+                        "A hand",
+                        "A monkey",
+                        "A robot"
+                    ],
+                    correct: 0,
+                    explanation: "A glove! It has a thumb and four fingers but is not alive."
+                },
+                {
+                    question: "What is full of holes but still holds water?",
+                    options: [
+                        "A sponge",
+                        "A sieve",
+                        "A net",
+                        "A colander"
+                    ],
+                    correct: 0,
+                    explanation: "A sponge! It's full of holes but can absorb and hold water."
+                },
+                {
+                    question: "What has legs but cannot walk?",
+                    options: [
+                        "A chair",
+                        "A table",
+                        "A spider",
+                        "A snake"
+                    ],
+                    correct: 1,
+                    explanation: "A table! It has legs (table legs) but cannot walk."
+                },
+                {
+                    question: "What can travel around the world while staying in a corner?",
+                    options: [
+                        "A globe",
+                        "A stamp",
+                        "A compass",
+                        "A map"
+                    ],
+                    correct: 1,
+                    explanation: "A stamp! It travels around the world on letters and packages while staying in the corner of envelopes."
+                },
+                {
+                    question: "What gets bigger when you take away from it?",
+                    options: [
+                        "A hole",
+                        "A shadow",
+                        "A debt",
+                        "A memory"
+                    ],
+                    correct: 0,
+                    explanation: "A hole! The more you dig or take away from it, the bigger the hole becomes."
+                },
+                {
+                    question: "What has keys, no locks, space, no room, and you can enter but not go in?",
+                    options: [
+                        "A computer",
+                        "A keyboard",
+                        "A piano",
+                        "A typewriter"
+                    ],
+                    correct: 1,
+                    explanation: "A keyboard! It has keys (letter keys), space (spacebar), and you can enter (Enter key), but it's not something you physically go into."
+                },
+                {
+                    question: "What has many keys but no locks, space but no room, and you can enter but not go in?",
+                    options: [
+                        "A piano",
+                        "A keyboard",
+                        "A typewriter",
+                        "A calculator"
+                    ],
+                    correct: 1,
+                    explanation: "A keyboard! It has keys (letter keys), space (spacebar), and you can enter (Enter key), but it's not something you physically go into."
+                },
+                {
+                    question: "What has cities, but no houses; forests, but no trees; and rivers, but no water?",
+                    options: [
+                        "A map",
+                        "A globe",
+                        "A book",
+                        "A painting"
+                    ],
+                    correct: 0,
+                    explanation: "A map! It shows cities, forests, and rivers, but they're just representations, not the real things."
+                },
+                {
+                    question: "What breaks when you say it?",
+                    options: [
+                        "A promise",
+                        "Silence",
+                        "A heart",
+                        "A glass"
+                    ],
+                    correct: 1,
+                    explanation: "Silence! When you say the word 'silence', you break the silence."
+                },
+                {
+                    question: "What has a head and a tail but no body?",
+                    options: [
+                        "A snake",
+                        "A coin",
+                        "A worm",
+                        "A fish"
+                    ],
+                    correct: 1,
+                    explanation: "A coin! It has a head (one side) and a tail (the other side), but no body in between."
+                },
+                {
+                    question: "What comes once in a minute, twice in a moment, but never in a thousand years?",
+                    options: [
+                        "The letter 'E'",
+                        "The letter 'M'",
+                        "The letter 'O'",
+                        "The letter 'T'"
+                    ],
+                    correct: 1,
+                    explanation: "The letter 'M'! It appears once in 'minute', twice in 'moment', but never in 'thousand years'."
+                },
+                {
+                    question: "What is always in front of you but can't be seen?",
+                    options: [
+                        "The future",
+                        "Your shadow",
+                        "The past",
+                        "Your reflection"
+                    ],
+                    correct: 0,
+                    explanation: "The future! It's always ahead of you, but you can never see it coming."
+                },
+                {
+                    question: "What has keys that open no doors, space but no room, and you can enter but not go in?",
+                    options: [
+                        "A computer",
+                        "A keyboard",
+                        "A piano",
+                        "A calculator"
+                    ],
+                    correct: 1,
+                    explanation: "A keyboard! It has keys that don't open doors, space (spacebar), and you can enter (Enter key) but not physically go in."
+                },
+                {
+                    question: "What can run but has no legs?",
+                    options: [
+                        "A river",
+                        "A car",
+                        "A clock",
+                        "A computer"
+                    ],
+                    correct: 0,
+                    explanation: "A river! It can run (flow) but has no legs."
+                },
+                {
+                    question: "What has a thumb and four fingers but is not alive?",
+                    options: [
+                        "A glove",
+                        "A hand",
+                        "A monkey",
+                        "A robot"
+                    ],
+                    correct: 0,
+                    explanation: "A glove! It has a thumb and four fingers but is not alive."
+                },
+                {
+                    question: "What is full of holes but still holds water?",
+                    options: [
+                        "A sponge",
+                        "A sieve",
+                        "A net",
+                        "A colander"
+                    ],
+                    correct: 0,
+                    explanation: "A sponge! It's full of holes but can absorb and hold water."
+                },
+                {
+                    question: "What has legs but cannot walk?",
+                    options: [
+                        "A chair",
+                        "A table",
+                        "A spider",
+                        "A snake"
+                    ],
+                    correct: 1,
+                    explanation: "A table! It has legs (table legs) but cannot walk."
+                },
+                {
+                    question: "What can travel around the world while staying in a corner?",
+                    options: [
+                        "A globe",
+                        "A stamp",
+                        "A compass",
+                        "A map"
+                    ],
+                    correct: 1,
+                    explanation: "A stamp! It travels around the world on letters and packages while staying in the corner of envelopes."
+                },
+                {
+                    question: "What gets bigger when you take away from it?",
+                    options: [
+                        "A hole",
+                        "A shadow",
+                        "A debt",
+                        "A memory"
+                    ],
+                    correct: 0,
+                    explanation: "A hole! The more you dig or take away from it, the bigger the hole becomes."
+                },
+                {
+                    question: "What has keys, no locks, space, no room, and you can enter but not go in?",
+                    options: [
+                        "A computer",
+                        "A keyboard",
+                        "A piano",
+                        "A typewriter"
+                    ],
+                    correct: 1,
+                    explanation: "A keyboard! It has keys (letter keys), space (spacebar), and you can enter (Enter key), but it's not something you physically go into."
+                },
+                {
+                    question: "What has many keys but no locks, space but no room, and you can enter but not go in?",
+                    options: [
+                        "A piano",
+                        "A keyboard",
+                        "A typewriter",
+                        "A calculator"
+                    ],
+                    correct: 1,
+                    explanation: "A keyboard! It has keys (letter keys), space (spacebar), and you can enter (Enter key), but it's not something you physically go into."
+                },
+                {
+                    question: "What has cities, but no houses; forests, but no trees; and rivers, but no water?",
+                    options: [
+                        "A map",
+                        "A globe",
+                        "A book",
+                        "A painting"
+                    ],
+                    correct: 0,
+                    explanation: "A map! It shows cities, forests, and rivers, but they're just representations, not the real things."
+                },
+                {
+                    question: "What breaks when you say it?",
+                    options: [
+                        "A promise",
+                        "Silence",
+                        "A heart",
+                        "A glass"
+                    ],
+                    correct: 1,
+                    explanation: "Silence! When you say the word 'silence', you break the silence."
+                },
+                {
+                    question: "What has a head and a tail but no body?",
+                    options: [
+                        "A snake",
+                        "A coin",
+                        "A worm",
+                        "A fish"
+                    ],
+                    correct: 1,
+                    explanation: "A coin! It has a head (one side) and a tail (the other side), but no body in between."
+                },
+                {
+                    question: "What comes once in a minute, twice in a moment, but never in a thousand years?",
+                    options: [
+                        "The letter 'E'",
+                        "The letter 'M'",
+                        "The letter 'O'",
+                        "The letter 'T'"
+                    ],
+                    correct: 1,
+                    explanation: "The letter 'M'! It appears once in 'minute', twice in 'moment', but never in 'thousand years'."
+                },
+                {
+                    question: "What is always in front of you but can't be seen?",
+                    options: [
+                        "The future",
+                        "Your shadow",
+                        "The past",
+                        "Your reflection"
+                    ],
+                    correct: 0,
+                    explanation: "The future! It's always ahead of you, but you can never see it coming."
+                }
+            ];
+            
+            // Randomly select 10 questions from the bank
+            this.questions = this.getRandomQuestions(10);
                 this.selectedAnswer = null;
                 this.answered = false;
 
@@ -919,11 +1450,19 @@
                 this.progressFill.style.width = progress + '%';
             }
 
+            getRandomQuestions(count) {
+                const shuffled = [...this.questionBank].sort(() => 0.5 - Math.random());
+                return shuffled.slice(0, count);
+            }
+
             restart() {
                 this.currentQuestion = 0;
                 this.score = 0;
                 this.selectedAnswer = null;
                 this.answered = false;
+                
+                // Get new random questions for replay
+                this.questions = this.getRandomQuestions(10);
                 
                 this.scoreElement.textContent = '0';
                 this.quizContainer.style.display = 'block';
